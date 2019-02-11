@@ -35,7 +35,7 @@
         </config-file>
 
         <!-- Add our activities to the Android Manifest -->
-        <config-file target="AndroidManifest.xml" parent="application">
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
                 android:name="com.mattrayner.vuforia.app.ImageTargets"
                 android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
@@ -142,5 +142,5 @@
         <resource-file src="src/ios/Assets/ImageTargets/iOSDevices.png" target-dir="Resources" />
     </platform>
 
-    <dependency id="cordova-plugin-vuforia-sdk" version="6.x.x" />
+    <dependency id="https://github.com/Missile71/cordova-plugin-vuforia-sdk" version="6.x.x" />
 </plugin>
