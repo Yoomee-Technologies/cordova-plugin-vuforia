@@ -111,6 +111,11 @@
             <string>To scan for images.</string>
         </config-file>
 
+        <header-file src="src/ios/LinkViewController.h" />
+        <source-file src="src/ios/LinkViewController.m" />
+        <header-file src="src/ios/MoviePlayerViewController.h" />
+        <source-file src="src/ios/MoviePlayerViewController.m" />
+
         <header-file src="src/ios/VuforiaPlugin.h" />
         <source-file src="src/ios/VuforiaPlugin.m" />
         <header-file src="src/ios/ViewController.h" />
