@@ -784,8 +784,10 @@
         
         if (NULL != dataSet) {
             NSLog(@"INFO: successfully loaded data set");
-            NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            //NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
             NSString  *documentsDirectory = [paths objectAtIndex:0];
+            documentsDirectory = [documentsDirectory stringByAppendingString:@"/NoCloud"];
             // Load the data set from the app's resources location
             if (!dataSet->load([[NSString stringWithFormat:@"%@/%@", documentsDirectory,dataFile] cStringUsingEncoding:NSASCIIStringEncoding], Vuforia::STORAGE_ABSOLUTE)) {
                 NSLog(@"ERROR: failed to load data set");
