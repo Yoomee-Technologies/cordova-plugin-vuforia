@@ -35,7 +35,7 @@
         </config-file>
 
         <!-- Add our activities to the Android Manifest -->
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <config-file target="AndroidManifest.xml" parent="/manifest">
             <activity
                 android:name="com.mattrayner.vuforia.app.ImageTargets"
                 android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
