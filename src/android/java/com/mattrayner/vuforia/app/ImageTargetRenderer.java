@@ -7,6 +7,9 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 package com.mattrayner.vuforia.app;
 
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -20,12 +23,17 @@ import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.vuforia.InstanceId;
 import com.vuforia.Renderer;
 import com.vuforia.State;
 import com.vuforia.Trackable;
 import com.vuforia.TrackableResult;
+import com.vuforia.VuMarkTarget;
+import com.vuforia.VuMarkTargetResult;
 import com.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.vuforia.Vuforia;
+import com.vuforia.VuMarkTarget;
+import com.vuforia.VuMarkTargetResult;
 import com.mattrayner.vuforia.app.ApplicationSession;
 import com.mattrayner.vuforia.app.utils.LoadingDialogHandler;
 import com.mattrayner.vuforia.app.utils.Texture;
@@ -40,7 +48,6 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer
     private ImageTargets mActivity;
 
     private Renderer mRenderer;
-
     boolean mIsActive = false;
 
     String mTargets = "";
@@ -126,28 +133,23 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer
             GLES20.glFrontFace(GLES20.GL_CW); // Front camera
         else
             GLES20.glFrontFace(GLES20.GL_CCW); // Back camera
-
         // did we find any trackables this frame?
         for (int tIdx = 0; tIdx < state.getNumTrackableResults(); tIdx++)
         {
             TrackableResult result = state.getTrackableResult(tIdx);
-            Trackable trackable = result.getTrackable();
-
-            String obj_name = trackable.getName();
-
-            Log.d(LOGTAG, "MRAY :: Found: " + obj_name);
-
-            /**
-             * Our targets array has been flattened to a string so will equal something like: ["one", "two"]
-             * So, to stop weak matches such as 'two' within ["onetwothree", "two"] we wrap the term in
-             * speech marks such as '"two"'
-             **/
-            Boolean looking_for = mTargets.toLowerCase().contains("\"" + obj_name.toLowerCase() + "\"");
-
-            if (looking_for)
-            {
+            if (result.isOfType(VuMarkTargetResult.getClassType())) {
+                VuMarkTarget trackable = (VuMarkTarget) result.getTrackable();
+                InstanceId instanceId = trackable.getInstanceId();
+                String markerValue = instanceIdToValue(instanceId);
+                Log.e("FOUNDTRACKABLE", "VUMARK: "+markerValue);
+            } else {
+                Trackable trackable = result.getTrackable();
+                String obj_name = trackable.getName();
+                Log.e("FOUNDTRACKABLE", "IMAGE:" + obj_name);
                 mActivity.imageFound(obj_name);
             }
+
+
         }
 
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
@@ -158,5 +160,39 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer
     public void updateTargetStrings(String targets) {
         mTargets = targets;
     }
+    static final String hexTable = "0123456789abcdef";
+    private String instanceIdToValue(InstanceId instanceId)
+    {
+        ByteBuffer instanceIdBuffer = instanceId.getBuffer();
+        byte[] instanceIdBytes = new byte[instanceIdBuffer.remaining()];
+        instanceIdBuffer.get(instanceIdBytes);
 
+        String instanceIdStr = "";
+        switch(instanceId.getDataType())
+        {
+            case InstanceId.ID_DATA_TYPE.STRING:
+                instanceIdStr = new String(instanceIdBytes, Charset.forName("US-ASCII"));
+                break;
+
+            case InstanceId.ID_DATA_TYPE.BYTES:
+                for (int i = instanceIdBytes.length - 1; i >= 0; i--)
+                {
+                    byte byteValue = instanceIdBytes[i];
+                    instanceIdStr += hexTable.charAt((byteValue & 0xf0) >> 4);
+                    instanceIdStr += hexTable.charAt(byteValue & 0x0f);
+                }
+                break;
+
+            case InstanceId.ID_DATA_TYPE.NUMERIC:
+                BigInteger instanceIdNumeric = instanceId.getNumericValue();
+                Long instanceIdLong = instanceIdNumeric.longValue();
+                instanceIdStr = Long.toString(instanceIdLong);
+                break;
+
+            default:
+                return "Unknown";
+        }
+
+        return instanceIdStr;
+    }
 }
