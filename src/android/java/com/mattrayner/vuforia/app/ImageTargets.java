@@ -68,6 +68,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
     ApplicationSession vuforiaAppSession;
 
     private DataSet mCurrentDataset;
+    private DataSet mCurrentDataset2;
     private int mCurrentDatasetSelectionIndex = 0;
     private int mCurrentDatasetSelectionIndex2 = 1;
     private int mStartDatasetsIndex = 0;
@@ -188,10 +189,10 @@ public class ImageTargets extends Activity implements ApplicationControl {
         Log.d(LOGTAG, "MRAY :: VUFORIA RECEIVED FILE: " + target_file);
         Log.d(LOGTAG, "MRAY :: VUTORIA TARGETS: " + mTargets);
         Log.d(LOGTAG, "MRAY :: OVERLAY MESSAGE: " + mOverlayMessage);
-        if (target_file) {
+        if (!target_file.isEmpty()) {
             mDatasetStrings.add(target_file);
         }
-        if (target_file2) {
+        if (!target_file2.isEmpty()) {
             mDatasetStrings.add(target_file2);
         }
         showToast(target_file);
