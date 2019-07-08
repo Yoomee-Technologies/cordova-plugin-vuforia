@@ -195,8 +195,6 @@ public class ImageTargets extends Activity implements ApplicationControl {
         if (!target_file2.isEmpty()) {
             mDatasetStrings.add(target_file2);
         }
-        showToast(target_file);
-        showToast(target_file2);
         vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
         mGestureDetector = new GestureDetector(this, new GestureListener());
