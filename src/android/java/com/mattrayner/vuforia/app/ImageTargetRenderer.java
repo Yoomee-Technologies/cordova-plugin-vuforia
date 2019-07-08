@@ -141,7 +141,7 @@ public class ImageTargetRenderer implements GLSurfaceView.Renderer
                 VuMarkTarget trackable = (VuMarkTarget) result.getTrackable();
                 InstanceId instanceId = trackable.getInstanceId();
                 String markerValue = instanceIdToValue(instanceId);
-                Log.e("FOUNDTRACKABLE", "VUMARK: "+markerValue);
+                Log.e("FOUNDTRACKABLE", "VUMARK: " + markerValue);
                 mActivity.imageFound(markerValue);
             } else {
                 Trackable trackable = result.getTrackable();

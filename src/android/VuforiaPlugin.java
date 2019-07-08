@@ -100,6 +100,7 @@ public class VuforiaPlugin extends CordovaPlugin {
 
         // Get all of our ARGS out and into local variables
         String targetFile = args.getString(0);
+        String targetFile2 = args.getString(7);
         String targets = args.getJSONArray(1).toString();
         String overlayText = (args.isNull(2)) ? null : args.getString(2);
         String vuforiaLicense = args.getString(3);
@@ -113,6 +114,7 @@ public class VuforiaPlugin extends CordovaPlugin {
         Intent intent = new Intent(context, ImageTargets.class);
 
         intent.putExtra("IMAGE_TARGET_FILE", targetFile);
+        intent.putExtra("IMAGE_TARGET_FILE2", targetFile2);
         intent.putExtra("IMAGE_TARGETS", targets);
 
         if(overlayText != null)
