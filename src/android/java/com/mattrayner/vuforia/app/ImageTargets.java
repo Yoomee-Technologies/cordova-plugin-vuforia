@@ -1,6 +1,5 @@
 /*===============================================================================
 Copyright (c) 2012-2014 Qualcomm Connected Experiences, Inc. All Rights Reserved.
-
 Vuforia is a trademark of QUALCOMM Incorporated, registered in the United States
 and other countries. Trademarks of QUALCOMM Incorporated are used with permission.
 ===============================================================================*/
@@ -68,9 +67,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
     ApplicationSession vuforiaAppSession;
 
     private DataSet mCurrentDataset;
-    private DataSet mCurrentDataset2;
     private int mCurrentDatasetSelectionIndex = 0;
-    private int mCurrentDatasetSelectionIndex2 = 1;
     private int mStartDatasetsIndex = 0;
     private int mDatasetsNumber = 0;
     private ArrayList<String> mDatasetStrings = new ArrayList<String>();
@@ -189,12 +186,9 @@ public class ImageTargets extends Activity implements ApplicationControl {
         Log.d(LOGTAG, "MRAY :: VUFORIA RECEIVED FILE: " + target_file);
         Log.d(LOGTAG, "MRAY :: VUTORIA TARGETS: " + mTargets);
         Log.d(LOGTAG, "MRAY :: OVERLAY MESSAGE: " + mOverlayMessage);
-        if (!target_file.isEmpty()) {
-            mDatasetStrings.add(target_file);
-        }
-        if (!target_file2.isEmpty()) {
-            mDatasetStrings.add(target_file2);
-        }
+        mDatasetStrings.add(target_file);
+        mDatasetStrings.add(target_file2);
+
         vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
         mGestureDetector = new GestureDetector(this, new GestureListener());
@@ -411,52 +405,47 @@ public class ImageTargets extends Activity implements ApplicationControl {
     public boolean doLoadTrackersData() {
         TrackerManager tManager = TrackerManager.getInstance();
         ObjectTracker objectTracker = (ObjectTracker) tManager.getTracker(ObjectTracker.getClassType());
-        if (mCurrentDataset == null)
+        if (objectTracker == null)
+            return false;
+        for (int i = 0; i < mDatasetStrings.size(); i++) {
             mCurrentDataset = objectTracker.createDataSet();
 
-        if (mCurrentDataset == null)
-            return false;
+            if (mCurrentDataset == null)
+                return false;
 
-        if (!mCurrentDataset.load(mDatasetStrings.get(mCurrentDatasetSelectionIndex), STORAGE_TYPE.STORAGE_ABSOLUTE))
-            return false;
+            // Determine the storage type.
+            int storage_type;
+            String dataFile = mDatasetStrings.get(i);
 
-        if (!objectTracker.activateDataSet(mCurrentDataset))
-            return false;
-
-        int numTrackables = mCurrentDataset.getNumTrackables();
-        for (int count = 0; count < numTrackables; count++) {
-            Trackable trackable = mCurrentDataset.getTrackable(count);
-            if (isExtendedTrackingActive()) {
-                trackable.startExtendedTracking();
+            if (dataFile.startsWith(FILE_PROTOCOL)) {
+                storage_type = STORAGE_TYPE.STORAGE_ABSOLUTE;
+                dataFile = dataFile.substring(FILE_PROTOCOL.length(), dataFile.length());
+                mDatasetStrings.set(i, dataFile);
+                Log.d(LOGTAG, "Reading the absolute path: " + dataFile);
+            } else {
+                storage_type = STORAGE_TYPE.STORAGE_APPRESOURCE;
+                Log.d(LOGTAG, "Reading the path " + dataFile + " from the assets folder.");
             }
 
-            String name = "Current Dataset : " + trackable.getName();
-            trackable.setUserData(name);
+            if (!mCurrentDataset.load(mDatasetStrings.get(i), storage_type))
+                return false;
 
-        }
+            if (!objectTracker.activateDataSet(mCurrentDataset))
+                return false;
 
-        if (mCurrentDataset2 == null)
-            mCurrentDataset2 = objectTracker.createDataSet();
+            int numTrackables = mCurrentDataset.getNumTrackables();
+            for (int count = 0; count < numTrackables; count++) {
+                Trackable trackable = mCurrentDataset.getTrackable(count);
+                if (isExtendedTrackingActive()) {
+                    trackable.startExtendedTracking();
+                }
 
-        if (mCurrentDataset2 == null)
-            return false;
+                String obj_name = trackable.getName();
 
-        if (!mCurrentDataset2.load(mDatasetStrings.get(mCurrentDatasetSelectionIndex2), STORAGE_TYPE.STORAGE_ABSOLUTE))
-            return false;
-
-        if (!objectTracker.activateDataSet(mCurrentDataset2))
-            return false;
-
-        int numTrackables2 = mCurrentDataset2.getNumTrackables();
-        for (int count2 = 0; count2 < numTrackables2; count2++) {
-            Trackable trackable2 = mCurrentDataset2.getTrackable(count2);
-            if (isExtendedTrackingActive()) {
-                trackable2.startExtendedTracking();
+                String name = "Current Dataset : " + obj_name;
+                trackable.setUserData(name);
+                Log.d(LOGTAG, "UserData:Set the following user data " + (String) trackable.getUserData());
             }
-
-            String name2 = "Current Dataset : " + trackable2.getName();
-            trackable2.setUserData(name2);
-
         }
 
         return true;
