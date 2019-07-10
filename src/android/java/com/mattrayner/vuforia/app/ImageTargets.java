@@ -186,8 +186,12 @@ public class ImageTargets extends Activity implements ApplicationControl {
         Log.d(LOGTAG, "MRAY :: VUFORIA RECEIVED FILE: " + target_file);
         Log.d(LOGTAG, "MRAY :: VUTORIA TARGETS: " + mTargets);
         Log.d(LOGTAG, "MRAY :: OVERLAY MESSAGE: " + mOverlayMessage);
-        mDatasetStrings.add(target_file);
-        mDatasetStrings.add(target_file2);
+        if (!target_file.isEmpty() && !target_file.equals("null")) {
+            mDatasetStrings.add(target_file);
+        }
+        if (!target_file2.isEmpty() && !target_file2.equals("null")) {
+            mDatasetStrings.add(target_file2);
+        }
 
         vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
