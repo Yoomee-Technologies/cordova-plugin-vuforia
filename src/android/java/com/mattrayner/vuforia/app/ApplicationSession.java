@@ -175,7 +175,7 @@ public class ApplicationSession implements UpdateCallbackInterface
         String error;
         if(mCameraRunning)
         {
-        	error = "Camera already running, unable to open again";
+        	error = "Si è verificato un problema, prova a riavviare l'app";
         	Log.e(LOGTAG, error);
             throw new ApplicationException(
                 ApplicationException.CAMERA_INITIALIZATION_FAILURE, error);
@@ -184,7 +184,7 @@ public class ApplicationSession implements UpdateCallbackInterface
         mCamera = camera;
         if (!CameraDevice.getInstance().init(camera))
         {
-            error = "Unable to open camera device: " + camera;
+            error = "Si è verificato un problema, prova a riavviare l'app";
             Log.e(LOGTAG, error);
             throw new ApplicationException(
                 ApplicationException.CAMERA_INITIALIZATION_FAILURE, error);
@@ -193,7 +193,7 @@ public class ApplicationSession implements UpdateCallbackInterface
         if (!CameraDevice.getInstance().selectVideoMode(
             CameraDevice.MODE.MODE_DEFAULT))
         {
-            error = "Unable to set video mode";
+            error = "Si è verificato un problema, prova a riavviare l'app";
             Log.e(LOGTAG, error);
             throw new ApplicationException(
                 ApplicationException.CAMERA_INITIALIZATION_FAILURE, error);
@@ -204,7 +204,7 @@ public class ApplicationSession implements UpdateCallbackInterface
 
         if (!CameraDevice.getInstance().start())
         {
-            error = "Unable to start camera device: " + camera;
+            error = "Si è verificato un problema, prova a riavviare l'app";
             Log.e(LOGTAG, error);
             throw new ApplicationException(
                 ApplicationException.CAMERA_INITIALIZATION_FAILURE, error);
@@ -265,16 +265,15 @@ public class ApplicationSession implements UpdateCallbackInterface
 
             // Deinitialize Vuforia SDK:
             Vuforia.deinit();
-
             if (!unloadTrackersResult)
                 throw new ApplicationException(
                     ApplicationException.UNLOADING_TRACKERS_FAILURE,
-                    "Failed to unload trackers\' data");
+                    "Si è verificato un problema, prova a riavviare l'app");
 
             if (!deinitTrackersResult)
                 throw new ApplicationException(
                     ApplicationException.TRACKERS_DEINITIALIZATION_FAILURE,
-                    "Failed to deinitialize trackers");
+                    "Si è verificato un problema, prova a riavviare l'app");
 
         }
     }
@@ -438,7 +437,7 @@ public class ApplicationSession implements UpdateCallbackInterface
                         mLoadTrackerTask.execute();
                     } catch (Exception e)
                     {
-                        String logMessage = "Loading tracking data set failed";
+                        String logMessage = "Si è verificato un problema, prova a riavviare l'app";
                         vuforiaException = new ApplicationException(
                             ApplicationException.LOADING_TRACKERS_FAILURE,
                             logMessage);
@@ -450,7 +449,7 @@ public class ApplicationSession implements UpdateCallbackInterface
                 {
                     vuforiaException = new ApplicationException(
                         ApplicationException.TRACKERS_INITIALIZATION_FAILURE,
-                        "Failed to initialize trackers");
+                        "Si è verificato un problema, prova a riavviare l'app");
                     mSessionControl.onInitARDone(vuforiaException);
                 }
             } else
@@ -500,7 +499,7 @@ public class ApplicationSession implements UpdateCallbackInterface
 
             if (!result)
             {
-                String logMessage = "Failed to load tracker data.";
+                String logMessage = "Si è verificato un problema, prova a riavviare l'app";
                 // Error loading dataset
                 Log.e(LOGTAG, logMessage);
                 vuforiaException = new ApplicationException(
@@ -531,24 +530,24 @@ public class ApplicationSession implements UpdateCallbackInterface
     private String getInitializationErrorString(int code)
     {
         if (code == Vuforia.INIT_DEVICE_NOT_SUPPORTED)
-            return "Failed to initialize Vuforia. This device is not supported.";
+            return "App non compatibile con il tuo dispositivo.";
         if (code == Vuforia.INIT_NO_CAMERA_ACCESS)
-            return "Failed to initialize Vuforia. Camera not accessible";
+            return "Vai su Impostazioni e consenti all'app Guarda! di accedere alla fotocamera.";
         if (code == Vuforia.INIT_LICENSE_ERROR_MISSING_KEY)
-            return "Vuforia App key is missing. Please get a valid key, by logging into your account at developer.vuforia.com and creating a new project.";
+            return "Codice errore 123971. Prova a riavviare l'app o contatta l'assistenza Zanichelli.";
         if (code == Vuforia.INIT_LICENSE_ERROR_INVALID_KEY)
-            return "Invalid Key used. Please make sure you are using a valid Vuforia App Key.";
+            return "Codice errore 387581. Prova a riavviare l'app o contatta l'assistenza Zanichelli.";
         if (code == Vuforia.INIT_LICENSE_ERROR_NO_NETWORK_TRANSIENT)
-            return "Unable to contact server. Please try again later.";
+            return "Potrebbe esserci un problema di rete. Prova a riavviare l'app.";
         if (code == Vuforia.INIT_LICENSE_ERROR_NO_NETWORK_PERMANENT)
-            return "No network available. Please make sure you are connected to the Internet.";
+            return "Connetti il tuo dispositivo a Internet per utilizzare Guarda!.";
         if (code == Vuforia.INIT_LICENSE_ERROR_CANCELED_KEY)
-            return "This app license key has been canceled and may no longer be used. Please get a new license key.";
+            return "Codice errore 948671. Prova a riavviare l'app o contatta l'assistenza Zanichelli.";
         if (code == Vuforia.INIT_LICENSE_ERROR_PRODUCT_TYPE_MISMATCH)
-            return "Vuforia App key is not valid for this product. Please get a valid key, by logging into your account at developer.vuforia.com and choosing the right product type during project creation.";
+            return "Codice errore 573931. Prova a riavviare l'app o contatta l'assistenza Zanichelli.";
         else
         {
-            return "Failed to initialize Vuforia.";
+            return "Codice errore 754812. Prova a riavviare l'app o contatta l'assistenza Zanichelli.";
         }
     }
 
