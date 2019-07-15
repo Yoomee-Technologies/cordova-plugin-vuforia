@@ -100,6 +100,7 @@ public class ApplicationSession implements UpdateCallbackInterface
         // will not send an Activity.onConfigurationChanged() callback on a 180 degree rotation,
         // ie: Left Landscape to Right Landscape.  Vuforia needs to react to this change and the
         // ApplicationSession needs to update the Projection Matrix.
+        /*
         OrientationEventListener orientationEventListener = new OrientationEventListener(mActivity) {
             @Override
             public void onOrientationChanged(int i) {
@@ -121,8 +122,8 @@ public class ApplicationSession implements UpdateCallbackInterface
         // Apply screen orientation
         mActivity.setRequestedOrientation(screenOrientation);
 
+        */
         updateActivityOrientation();
-
         // Query display dimensions:
         storeScreenDimensions();
 
