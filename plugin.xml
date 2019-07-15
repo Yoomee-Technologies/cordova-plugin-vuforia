@@ -38,7 +38,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
                 android:name="com.mattrayner.vuforia.app.ImageTargets"
-                android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
+                android:configChanges="keyboardHidden|screenSize|smallestScreenSize"
                 android:screenOrientation="portrait"
                 android:noHistory="true">
             </activity>
