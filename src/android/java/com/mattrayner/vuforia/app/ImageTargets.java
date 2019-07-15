@@ -151,7 +151,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
 
         // Remove notification bar
         // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Force Portrait
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
