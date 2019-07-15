@@ -39,7 +39,7 @@
             <activity
                 android:name="com.mattrayner.vuforia.app.ImageTargets"
                 android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
-                android:screenOrientation="landscape"
+                android:screenOrientation="portrait"
                 android:noHistory="true">
             </activity>
         </config-file>
