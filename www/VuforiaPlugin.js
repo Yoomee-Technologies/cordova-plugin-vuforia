@@ -30,20 +30,22 @@ var VuforiaPlugin = {
    */
   startVuforia: function(options, successCallback, errorCallback){
     var exec_options,
-      databaseXmlFile = options.databaseXmlFile,
-      targetList = options.targetList,
-      overlayMessage = options.overlayMessage,
-      vuforiaLicense = options.vuforiaLicense,
-      showAndroidCloseButton = !!options.showAndroidCloseButton,
-      showDevicesIcon = !!options.showDevicesIcon,
-      autostopOnImageFound = true;
-
+        databaseXmlFile = options.databaseXmlFile,
+        databaseXmlFile2 = options.databaseXmlFile2,
+        targetList = options.targetList,
+        overlayMessage = options.overlayMessage,
+        vuforiaLicense = options.vuforiaLicense,
+        showAndroidCloseButton = !!options.showAndroidCloseButton,
+        showDevicesIcon = !!options.showDevicesIcon,
+        autostopOnImageFound = true;
+  
     if (typeof options.autostopOnImageFound !== "undefined" && options.autostopOnImageFound !==null && !options.autostopOnImageFound)
       autostopOnImageFound = false;
-
-    exec_options = [ databaseXmlFile , targetList, overlayMessage, vuforiaLicense, showAndroidCloseButton, showDevicesIcon, autostopOnImageFound ];
-
+                  
+    exec_options = [ databaseXmlFile , targetList, overlayMessage, vuforiaLicense, showAndroidCloseButton, showDevicesIcon, autostopOnImageFound, databaseXmlFile2 ];
+  
     VuforiaPlugin.exec(successCallback, errorCallback, 'cordovaStartVuforia', exec_options);
+
   },
 
   /**
