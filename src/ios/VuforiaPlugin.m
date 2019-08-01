@@ -25,7 +25,10 @@
 
     self.autostopOnImageFound = [[command.arguments objectAtIndex:6] integerValue];
 
-    [self startVuforiaWithImageTargetFile:[command.arguments objectAtIndex:0] imageTargetNames: [command.arguments objectAtIndex:1] overlayOptions: overlayOptions vuforiaLicenseKey: [command.arguments objectAtIndex:3]];
+//    [self startVuforiaWithImageTargetFile:[command.arguments objectAtIndex:0] imageTargetNames: [command.arguments objectAtIndex:1] overlayOptions: overlayOptions vuforiaLicenseKey: [command.arguments objectAtIndex:3]];
+    
+     [self startVuforiaWithImageTargetFileZanichelli:[command.arguments objectAtIndex:0] imageTargetNames: [command.arguments objectAtIndex:1] overlayOptions: overlayOptions vuforiaLicenseKey: [command.arguments objectAtIndex:3] imageTargetfile2: [command.arguments objectAtIndex:7]];
+    
     self.command = command;
 
     self.startedVuforia = true;
@@ -99,18 +102,29 @@
 }
 
 #pragma mark - Util_Methods
-- (void) startVuforiaWithImageTargetFile:(NSString *)imageTargetfile imageTargetNames:(NSArray *)imageTargetNames overlayOptions:(NSDictionary *)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey {
+- (void) startVuforiaWithImageTargetFile:(NSString *)imageTargetfile imageTargetNames:(NSArray *)imageTargetNames overlayOptions:(NSDictionary *)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey imageTargetfile2:(NSString *)imageTargetfile2 {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ImageMatched" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageMatched:) name:@"ImageMatched" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CloseRequest" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeRequest:) name:@"CloseRequest" object:nil];
 
-    self.imageRecViewController = [[ViewController alloc] initWithFileName:imageTargetfile targetNames:imageTargetNames overlayOptions:overlayOptions vuforiaLicenseKey:vuforiaLicenseKey];
+    self.imageRecViewController = [[ViewController alloc] initWithFileName:imageTargetfile targetNames:imageTargetNames overlayOptions:overlayOptions vuforiaLicenseKey:vuforiaLicenseKey fileName2:imageTargetfile2];
 
     [self.viewController presentViewController:self.imageRecViewController animated:YES completion:nil];
 }
 
+- (void) startVuforiaWithImageTargetFileZanichelli:(NSString *)imageTargetfile imageTargetNames:(NSArray *)imageTargetNames overlayOptions:(NSDictionary *)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey imageTargetfile2:(NSString *)imageTargetfile2{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ImageMatched" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageMatched:) name:@"ImageMatched" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CloseRequest" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeRequest:) name:@"CloseRequest" object:nil];
+    
+    self.imageRecViewController = [[ViewController alloc] initWithFileName:imageTargetfile targetNames:imageTargetNames overlayOptions:overlayOptions vuforiaLicenseKey:vuforiaLicenseKey fileName2:imageTargetfile2];
+    
+    [self.viewController presentViewController:self.imageRecViewController animated:YES completion:nil];
+}
 
 - (void)imageMatched:(NSNotification *)notification {
 

@@ -7,7 +7,7 @@
 @property (retain, nonatomic) NSString *overlayText;
 @property (retain, nonatomic) NSString *vuforiaLicenseKey;
 
--(id)initWithFileName:(NSString *)fileName targetNames:(NSArray *)imageTargetNames overlayOptions:(NSDictionary*)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey;
+-(id)initWithFileName:(NSString *)fileName targetNames:(NSArray *)imageTargetNames overlayOptions:(NSDictionary*)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey fileName2:(NSString *)fileName2;
 - (bool) stopTrackers;
 - (bool) startTrackers;
 - (bool) updateTargets:(NSArray *)targets;

@@ -14,10 +14,10 @@
 @implementation ViewController
 
 
--(id)initWithFileName:(NSString *)fileName targetNames:(NSArray *)imageTargetNames overlayOptions:( NSDictionary *)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey {
+-(id)initWithFileName:(NSString *)fileName targetNames:(NSArray *)imageTargetNames overlayOptions:( NSDictionary *)overlayOptions vuforiaLicenseKey:(NSString *)vuforiaLicenseKey fileName2:(NSString *)fileName2 {
 
     self = [super init];
-    self.imageTargets = [[NSDictionary alloc] initWithObjectsAndKeys: fileName, @"imageTargetFile", imageTargetNames, @"imageTargetNames", nil];
+    self.imageTargets = [[NSDictionary alloc] initWithObjectsAndKeys: fileName, @"imageTargetFile", fileName2, @"imageTargetFile2", imageTargetNames, @"imageTargetNames", nil];
     self.overlayOptions = overlayOptions;
     self.vuforiaLicenseKey = vuforiaLicenseKey;
     NSLog(@"Vuforia Plugin :: initWithFileName: %@", fileName);
@@ -43,6 +43,7 @@
         self.launchedCamera = true;
 
         self.imageTargetsViewController.imageTargetFile = [self.imageTargets objectForKey:@"imageTargetFile"];
+        self.imageTargetsViewController.imageTargetFile2 = [self.imageTargets objectForKey:@"imageTargetFile2"];
         self.imageTargetsViewController.imageTargetNames = [self.imageTargets objectForKey:@"imageTargetNames"];
 
         [self presentViewController:self.imageTargetsViewController animated:NO completion:nil];
