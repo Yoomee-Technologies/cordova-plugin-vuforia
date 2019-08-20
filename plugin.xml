@@ -144,6 +144,11 @@
 
         <resource-file src="src/ios/Assets/ImageTargets/close-button.png" target-dir="Resources" />
         <resource-file src="src/ios/Assets/ImageTargets/iOSDevices.png" target-dir="Resources" />
+        
+        <resource-file src="src/ios/Assets/ImageTargets/back.png" target-dir="Resources" />
+        <resource-file src="src/ios/Assets/ImageTargets/back@2x.png" target-dir="Resources" />
+        <resource-file src="src/ios/Assets/ImageTargets/logo-zanichelli.png" target-dir="Resources" />
+        <resource-file src="src/ios/Assets/ImageTargets/logo-zanichelli@2x.png" target-dir="Resources" />
     </platform>
 
     <dependency id="cordova-plugin-vuforia-sdk" url="https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk" commit="master"/>
