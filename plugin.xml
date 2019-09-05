@@ -189,5 +189,5 @@
         <resource-file src="src/ios/Assets/ImageTargets/iOSDevices.png" target-dir="Resources" />
     </platform>
 
-    <dependency id="cordova-plugin-vuforia-sdk" url="https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk" commit="versione8.3.8"/>
+    <!--<dependency id="cordova-plugin-vuforia-sdk" url="https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk" commit="versione8.3.8"/>-->
 </plugin>
