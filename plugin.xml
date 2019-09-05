@@ -19,6 +19,9 @@
         LICENSE file for more information.
         This is free software, and you are welcome to redistribute it
         under certain conditions; see the LICENSE file for more information.
+        
+        installare SDK
+        https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk#versione8.3.8
     </info>
 
     <js-module src="www/VuforiaPlugin.js" name="VuforiaPlugin">
