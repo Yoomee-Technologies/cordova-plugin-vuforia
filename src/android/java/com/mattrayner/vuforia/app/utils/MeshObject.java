@@ -1,8 +1,10 @@
 /*===============================================================================
+Copyright (c) 2016,2018 PTC Inc. All Rights Reserved.
+
 Copyright (c) 2012-2014 Qualcomm Connected Experiences, Inc. All Rights Reserved.
 
-Vuforia is a trademark of QUALCOMM Incorporated, registered in the United States 
-and other countries. Trademarks of QUALCOMM Incorporated are used with permission.
+Vuforia is a trademark of PTC Inc., registered in the United States and other 
+countries.
 ===============================================================================*/
 
 package com.mattrayner.vuforia.app.utils;
@@ -11,7 +13,12 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-
+/**
+ * The MeshObject utility class is used to render various 3D objects and stores
+ * all the information required for rendering.
+ *
+ * Look at the BUFFER_TYPE enum to see what information is stored
+ */
 public abstract class MeshObject
 {
     
@@ -89,7 +96,7 @@ public abstract class MeshObject
     }
     
     
-    public abstract Buffer getBuffer(BUFFER_TYPE bufferType);
+    protected abstract Buffer getBuffer(BUFFER_TYPE bufferType);
     
     
     public abstract int getNumObjectVertex();

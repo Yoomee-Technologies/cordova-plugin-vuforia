@@ -51,6 +51,7 @@ import com.vuforia.Trackable;
 import com.vuforia.Tracker;
 import com.vuforia.TrackerManager;
 import com.vuforia.Vuforia;
+import com.mattrayner.vuforia.app.SampleActivityBase;
 import com.mattrayner.vuforia.app.ApplicationControl;
 import com.mattrayner.vuforia.app.ApplicationException;
 import com.mattrayner.vuforia.app.ApplicationSession;
@@ -60,7 +61,10 @@ import com.mattrayner.vuforia.app.utils.Texture;
 
 import com.mattrayner.vuforia.VuforiaPlugin;
 
-public class ImageTargets extends Activity implements ApplicationControl {
+public class ImageTargets extends SampleActivityBase implements ApplicationControl {
+
+    private boolean mDeviceTracker = false;
+
     private static final String LOGTAG = "ImageTargets";
     private static final String FILE_PROTOCOL = "file://";
 
@@ -193,9 +197,10 @@ public class ImageTargets extends Activity implements ApplicationControl {
             mDatasetStrings.add(target_file2);
         }
 
-        vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        mGestureDetector = new GestureDetector(this, new GestureListener());
+        //mGestureDetector = new GestureDetector(this, new GestureListener());
+      mGestureDetector = new GestureDetector(getApplicationContext(), new GestureListener());
 
         // Load any sample specific textures:
         mTextures = new Vector<Texture>();
@@ -261,23 +266,25 @@ public class ImageTargets extends Activity implements ApplicationControl {
         Log.d(LOGTAG, "onResume");
         super.onResume();
 
-        // This is needed for some Droid devices to force landscape
+        // This is needed for some Droid devices to force portrait
         if (mIsDroidDevice) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+          setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+          setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        try {
+      vuforiaAppSession.onResume();
+        /*try {
             vuforiaAppSession.resumeAR();
         } catch (ApplicationException e) {
             Log.e(LOGTAG, e.getString());
-        }
+        }*/
 
         // Resume the GL view:
-        if (mGlView != null) {
+       /*MISSILE
+       if (mGlView != null) {
             mGlView.setVisibility(View.VISIBLE);
             mGlView.onResume();
-        }
+        }*/
 
     }
 
@@ -311,11 +318,12 @@ public class ImageTargets extends Activity implements ApplicationControl {
             }
         }
 
-        try {
+      vuforiaAppSession.onPause();
+        /*try {
             vuforiaAppSession.pauseAR();
         } catch (ApplicationException e) {
             Log.e(LOGTAG, e.getString());
-        }
+        }*/
     }
 
     // The final call you receive before your activity is destroyed.
@@ -344,13 +352,19 @@ public class ImageTargets extends Activity implements ApplicationControl {
         int stencilSize = 0;
         boolean translucent = Vuforia.requiresAlpha();
 
-        mGlView = new ApplicationGLView(this);
+        //MISSILE mGlView = new ApplicationGLView(this);
+      mGlView = new ApplicationGLView(getApplicationContext());
         mGlView.init(translucent, depthSize, stencilSize);
 
-        mRenderer = new ImageTargetRenderer(this, vuforiaAppSession, mTargets);
+        //mRenderer = new ImageTargetRenderer(this, vuforiaAppSession, mTargets);
+      mRenderer = new ImageTargetRenderer(this, vuforiaAppSession);
         mGlView.setRenderer(mRenderer);
+      mGlView.setPreserveEGLContextOnPause(true);
+
+      setRendererReference(mRenderer);
 
     }
+
 
     private void startLoadingAnimation() {
         // Get the project's package name and a reference to it's resources
@@ -404,6 +418,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
         addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
+
     // Methods to load and destroy tracking data.
     @Override
     public boolean doLoadTrackersData() {
@@ -437,11 +452,13 @@ public class ImageTargets extends Activity implements ApplicationControl {
             if (!objectTracker.activateDataSet(mCurrentDataset))
                 return false;
 
-            int numTrackables = mCurrentDataset.getNumTrackables();
-            for (int count = 0; count < numTrackables; count++) {
-                Trackable trackable = mCurrentDataset.getTrackable(count);
+            //int numTrackables = mCurrentDataset.getNumTrackables();
+          int numTrackables =mCurrentDataset.getTrackables().size();
+          for (int count = 0; count < numTrackables; count++) {
+                //Trackable trackable = mCurrentDataset.getTrackable(count);
+            Trackable trackable = mCurrentDataset.getTrackables().at(count);
                 if (isExtendedTrackingActive()) {
-                    trackable.startExtendedTracking();
+                    //trackable.startExtendedTracking();
                 }
 
                 String obj_name = trackable.getName();
@@ -466,8 +483,9 @@ public class ImageTargets extends Activity implements ApplicationControl {
             return false;
 
         if (mCurrentDataset != null && mCurrentDataset.isActive()) {
-            if (objectTracker.getActiveDataSet().equals(mCurrentDataset)
-                    && !objectTracker.deactivateDataSet(mCurrentDataset)) {
+          if (objectTracker.activateDataSet(mCurrentDataset)&& !objectTracker.deactivateDataSet(mCurrentDataset)){
+            //if (objectTracker.getActiveDataSet().equals(mCurrentDataset)
+                    //&& !objectTracker.deactivateDataSet(mCurrentDataset)) {
                 result = false;
             } else if (!objectTracker.destroyDataSet(mCurrentDataset)) {
                 result = false;
@@ -485,7 +503,9 @@ public class ImageTargets extends Activity implements ApplicationControl {
         if (exception == null) {
             initApplicationAR();
 
-            mRenderer.mIsActive = true;
+          mRenderer.setActive(true);
+
+            //mRenderer.mIsActive = true;
 
             // Now add the GL surface view. It is important
             // that the OpenGL ES surface view gets added
@@ -499,11 +519,13 @@ public class ImageTargets extends Activity implements ApplicationControl {
             // Sets the layout background to transparent
             mUILayout.setBackgroundColor(Color.TRANSPARENT);
 
-            try {
-                vuforiaAppSession.startAR(CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_DEFAULT);
+          vuforiaAppSession.startAR();
+           /* try {
+
+                //vuforiaAppSession.startAR(CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_DEFAULT);
             } catch (ApplicationException e) {
                 Log.e(LOGTAG, e.getString());
-            }
+            }*/
 
             boolean result = CameraDevice.getInstance().setFocusMode(CameraDevice.FOCUS_MODE.FOCUS_MODE_CONTINUOUSAUTO);
 
@@ -552,7 +574,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
             mSwitchDatasetAsap = false;
             TrackerManager tm = TrackerManager.getInstance();
             ObjectTracker ot = (ObjectTracker) tm.getTracker(ObjectTracker.getClassType());
-            if (ot == null || mCurrentDataset == null || ot.getActiveDataSet() == null) {
+            if (ot == null || mCurrentDataset == null || ot.getActiveDataSets().at(0) == null) {
                 Log.d(LOGTAG, "Failed to swap datasets");
                 return;
             }
@@ -562,7 +584,14 @@ public class ImageTargets extends Activity implements ApplicationControl {
         }
     }
 
-    @Override
+  @Override
+  public void onVuforiaResumed() {
+  }
+  @Override
+  public void onVuforiaStarted() {
+  }
+
+  @Override
     public boolean doInitTrackers() {
         // Indicate if the trackers were initialized correctly
         boolean result = true;
@@ -679,8 +708,13 @@ public class ImageTargets extends Activity implements ApplicationControl {
     }
 
     public void doUpdateTargets(String targets) {
-        mTargets = targets;
+        //mTargets = targets;
 
-        mRenderer.updateTargetStrings(mTargets);
+        //mRenderer.updateTargetStrings(mTargets);
     }
+
+  boolean isDeviceTrackingActive()
+  {
+    return mDeviceTracker;
+  }
 }

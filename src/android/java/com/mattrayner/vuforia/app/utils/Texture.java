@@ -1,8 +1,10 @@
 /*===============================================================================
+Copyright (c) 2016-2018 PTC Inc. All Rights Reserved.
+
 Copyright (c) 2012-2014 Qualcomm Connected Experiences, Inc. All Rights Reserved.
 
-Vuforia is a trademark of QUALCOMM Incorporated, registered in the United States 
-and other countries. Trademarks of QUALCOMM Incorporated are used with permission.
+Vuforia is a trademark of PTC Inc., registered in the United States and other 
+countries.
 ===============================================================================*/
 
 package com.mattrayner.vuforia.app.utils;
@@ -18,26 +20,27 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.vuforia.Image;
 
-// Support class for the Vuforia samples applications.
-// Exposes functionality for loading a texture from the APK.
+/**
+ * Support class for the Vuforia sample applications
+ * Exposes functionality for loading a texture from the APK.
+ */
 public class Texture
 {
     private static final String LOGTAG = "Vuforia_Texture";
     
     public int mWidth;          // The width of the texture.
     public int mHeight;         // The height of the texture.
-    public int mChannels;       // The number of channels.
+    private  int mChannels;       // The number of channels.
     public ByteBuffer mData;    // The pixel data.
-    public int[] mTextureID = new int[1];
-    public boolean mSuccess = false;
+    public final int[] mTextureID = new int[1];
     
-    
-    /* Factory function to load a texture from the APK. */
+
     public static Texture loadTextureFromApk(String fileName,
         AssetManager assets)
     {
-        InputStream inputStream = null;
+        InputStream inputStream;
         try
         {
             inputStream = assets.open(fileName, AssetManager.ACCESS_BUFFER);
@@ -61,7 +64,7 @@ public class Texture
     }
     
     
-    public static Texture loadTextureFromIntBuffer(int[] data, int width,
+    private static Texture loadTextureFromIntBuffer(int[] data, int width,
         int height)
     {
         // Convert:
@@ -90,12 +93,21 @@ public class Texture
                 rowSize);
         
         texture.mData.rewind();
-        
-        // Cleans variables
-        dataBytes = null;
-        data = null;
-        
-        texture.mSuccess = true;
+
+        return texture;
+    }
+
+
+    public static Texture loadTextureFromImage(Image image)
+    {
+        Texture texture = new Texture();
+        texture.mWidth = image.getWidth();
+        texture.mHeight = image.getHeight();
+        texture.mChannels = 4;
+        texture.mData = image.getPixels();
+
+        texture.mData.rewind();
+
         return texture;
     }
 }

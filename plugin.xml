@@ -81,13 +81,56 @@
                      target-dir="src/java/com/mattrayner/vuforia/app" />
         <source-file src="src/android/java/com/mattrayner/vuforia/app/ApplicationSession.java"
                      target-dir="src/java/com/mattrayner/vuforia/app" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/SampleActivityBase.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/SampleAppRenderer.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/SampleAppRendererControl.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/SampleRendererBase.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app" />
+                     
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/ApplicationGLView.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/CubeObject.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/CubeShaders.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/DiffuseLightMaterials.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/LightingShaders.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/LineShaders.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
         <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/LoadingDialogHandler.java"
                      target-dir="src/java/com/mattrayner/vuforia/app/utils" />
         <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/MeshObject.java"
                      target-dir="src/java/com/mattrayner/vuforia/app/utils" />
-        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/ApplicationGLView.java"
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/Plane.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleApplication3DModel.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleApplicationGLView.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleApplicationV3DModel.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleAppTimer.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleGestureListener.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleMath.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/SampleUtils.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/Teapot.java"
                      target-dir="src/java/com/mattrayner/vuforia/app/utils" />
         <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/Texture.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/TextureColorShaders.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/TouchEvent.java"
+                     target-dir="src/java/com/mattrayner/vuforia/app/utils" />
+        <source-file src="src/android/java/com/mattrayner/vuforia/app/utils/VideoBackgroundShader.java"
                      target-dir="src/java/com/mattrayner/vuforia/app/utils" />
 
         <!-- Include our resources -->
@@ -146,5 +189,5 @@
         <resource-file src="src/ios/Assets/ImageTargets/iOSDevices.png" target-dir="Resources" />
     </platform>
 
-    <dependency id="cordova-plugin-vuforia-sdk" url="https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk" commit="master"/>
+    <dependency id="cordova-plugin-vuforia-sdk" url="https://github.com/Yoomee-Technologies/cordova-plugin-vuforia-sdk" commit="versione8.3.8"/>
 </plugin>
