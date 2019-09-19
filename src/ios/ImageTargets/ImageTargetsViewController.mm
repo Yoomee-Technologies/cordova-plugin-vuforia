@@ -199,22 +199,22 @@
         vuforiaBarView.frame = CGRectNull;
         
         
-        //AGGIUNGO BARRA DI NAVIGAZIONE ZANICHELLI
-        UIView *navBarView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
-        navBarView.backgroundColor = [self getUIColorObjectFromHexString:@"E30000" alpha:1.0];
-        navBarView.tag = 8;
-        [self.view addSubview:navBarView];
-        UIImageView* testataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-zanichelli.png"]];
-        testataImageView.center = CGPointMake(self.view.bounds.size.width/2, 64/2);
-        [navBarView addSubview:testataImageView];
-        self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-        [self.backButton addTarget:self
-                            action:@selector(goBack:)
-                  forControlEvents:UIControlEventTouchUpInside];
-        [self.backButton setTitle:@"" forState:UIControlStateNormal];
-        self.backButton.frame = CGRectMake(16.0, 16.0, 32.0, 32.0);
-        [navBarView addSubview:self.backButton];
+//AGGIUNGO BARRA DI NAVIGAZIONE ZANICHELLI
+//        UIView *navBarView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
+//        navBarView.backgroundColor = [self getUIColorObjectFromHexString:@"E30000" alpha:1.0];
+//        navBarView.tag = 8;
+//        [self.view addSubview:navBarView];
+//        UIImageView* testataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-zanichelli.png"]];
+//        testataImageView.center = CGPointMake(self.view.bounds.size.width/2, 64/2);
+//        [navBarView addSubview:testataImageView];
+//        self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [self.backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+//        [self.backButton addTarget:self
+//                            action:@selector(buttonPressed)
+//                  forControlEvents:UIControlEventTouchUpInside];
+//        [self.backButton setTitle:@"" forState:UIControlStateNormal];
+//        self.backButton.frame = CGRectMake(16.0, 16.0, 32.0, 32.0);
+//        [navBarView addSubview:self.backButton];
         
     }
 }
