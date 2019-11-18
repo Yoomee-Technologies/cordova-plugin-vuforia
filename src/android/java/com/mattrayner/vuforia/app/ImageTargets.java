@@ -668,7 +668,7 @@ public class ImageTargets extends Activity implements ApplicationControl {
         Log.d(LOGTAG, "mAuto Stop On Image Found: " + mAutostopOnImageFound);
 
         if (mAutostopOnImageFound) {
-            Vuforia.deinit();
+            //Vuforia.deinit(); Provoca crash dopo riconoscimento VuMark su Huawei Y6 2019
 
             finish();
         } else {
