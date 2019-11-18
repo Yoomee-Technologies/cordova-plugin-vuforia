@@ -697,7 +697,8 @@ public class ImageTargets extends SampleActivityBase implements ApplicationContr
         Log.d(LOGTAG, "mAuto Stop On Image Found: " + mAutostopOnImageFound);
 
         if (mAutostopOnImageFound) {
-            Vuforia.deinit();
+            //Possibile soluzione crash Huawei Y6 2019
+            //Vuforia.deinit();
 
             finish();
         } else {
