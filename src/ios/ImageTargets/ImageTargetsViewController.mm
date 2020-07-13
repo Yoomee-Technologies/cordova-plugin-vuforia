@@ -350,7 +350,16 @@
 
 - (void) hideLoadingAnimation {
     UIActivityIndicatorView *loadingIndicator = (UIActivityIndicatorView *)[eaglView viewWithTag:1];
-    [loadingIndicator removeFromSuperview];
+    @try {
+        [loadingIndicator removeFromSuperview];
+    }
+    @catch (NSException * e) {
+       NSLog(@"Exception: %@", e);
+    }
+    @finally {
+       NSLog(@"finally");
+    }
+    
 }
 
 
