@@ -244,7 +244,8 @@ public class ImageTargets extends SampleActivityBase implements ApplicationContr
         }
 
         IntentFilter intentFilter = new IntentFilter(VuforiaPlugin.PLUGIN_ACTION);
-        registerReceiver(vuforiaActionReceiver, intentFilter);
+        //registerReceiver(vuforiaActionReceiver, intentFilter);
+        registerReceiver(vuforiaActionReceiver, intentFilter, RECEIVER_EXPORTED);        
 
         Log.d(LOGTAG, "onStart");
         super.onStart();
